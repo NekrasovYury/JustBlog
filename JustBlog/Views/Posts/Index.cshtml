@@ -278,10 +278,10 @@
                                             }
 
 
-                                            <a href="#" class="post-tag">travel</a>
+                                            <a class="post-tag">@Html.DisplayFor(modelItem => item.Name)</a>
                                             <div class="post-info">
                                                 <p>
-                                                    <span class="post-date"><a href="#">July 10, 2015</a></span>
+                                                    <span class="post-date"><a>@Html.DisplayFor(modelItem => item.PostDate)</a></span>
                                                     <span class="post-comments"><a href="#">3 comments</a></span>
                                                     <span class="post-social-links">
                                                         <a href="#" data-toggle="tooltip" data-placement="bottom" title="Likes"><i class="fa fa-heart"></i></a>

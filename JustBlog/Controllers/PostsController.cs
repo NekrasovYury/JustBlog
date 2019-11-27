@@ -17,12 +17,45 @@ namespace JustBlog.Controllers
         private PostContext db = new PostContext();
 
         // GET: Posts
-        public ActionResult Index(int? page)
+        public ActionResult Index(string sortOrder, string searchString, string currentFilter, int? page)
         {
+            ViewBag.CurrentSort = sortOrder;
+            ViewBag.NameSortParm = String.IsNullOrEmpty(sortOrder) ? "name_desc" : "";
+            ViewBag.DateSortParm = sortOrder == "PostDate" ? "date_desc" : "PostDate";
+            if (searchString != null)
+            {
+                page = 1;
+            }
+            else
+            {
+                searchString = currentFilter;
+            }
+
+            ViewBag.CurrentFilter = searchString;
+
             var posts = from s in db.Posts
                            select s;
-
-            int pageSize = 3;
+            if (!String.IsNullOrEmpty(searchString))
+            {
+                posts = posts.Where(s => s.Name.Contains(searchString));
+                                       
+            }
+            switch (sortOrder)
+            {
+                case "name_desc":
+                    posts = posts.OrderByDescending(s => s.Name);
+                    break;
+                case "PostDate":
+                    posts = posts.OrderBy(s => s.PostDate);
+                    break;
+                case "date_desc":
+                    posts = posts.OrderByDescending(s => s.PostDate);
+                    break;
+                default:
+                    posts = posts.OrderBy(s => s.Name);
+                    break;
+            }
+            int pageSize = 10;
             int pageNumber = (page ?? 1);
             return View(posts.ToPagedList(pageNumber, pageSize));
         }

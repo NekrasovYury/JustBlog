@@ -109,97 +109,98 @@
                                     </p>
                                 </div><!-- /.sidebar-content -->
                             </div><!-- /.single-sidebar-widget -->
-                            <div class="single-sidebar-widget">
-                                <h6 class="widget-title">follow me on</h6>
-                                <div class="sidebar-content">
-                                    <div class="social-links-area">
-                                        <div class="single-icon">
-                                            <a href="#">
-                                                <i class="fa fa-facebook"></i>
-                                                <p>Facebook</p>
-                                            </a>
-                                        </div><!-- /.single-icon -->
-                                        <div class="single-icon">
-                                            <a href="#">
-                                                <i class="fa fa-twitter"></i>
-                                                <p>Twitter</p>
-                                            </a>
-                                        </div><!-- /.single-icon -->
-                                        <div class="single-icon">
-                                            <a href="#">
-                                                <i class="fa fa-google-plus"></i>
-                                                <p>Google Plus</p>
-                                            </a>
-                                        </div><!-- /.single-icon -->
-                                        <div class="single-icon">
-                                            <a href="#">
-                                                <i class="fa fa-pinterest"></i>
-                                                <p>Pinterest</p>
-                                            </a>
-                                        </div><!-- /.single-icon -->
-                                        <div class="single-icon">
-                                            <a href="#">
-                                                <i class="fa fa-rss"></i>
-                                                <p>RSS</p>
-                                            </a>
-                                        </div><!-- /.single-icon -->
-                                        <div class="single-icon">
-                                            <a href="#">
-                                                <i class="fa fa-dribbble"></i>
-                                                <p>Dribbble</p>
-                                            </a>
-                                        </div><!-- /.single-icon -->
-                                        <div class="single-icon">
-                                            <a href="#">
-                                                <i class="fa fa-instagram"></i>
-                                                <p>Instagram</p>
-                                            </a>
-                                        </div><!-- /.single-icon -->
-                                        <div class="single-icon">
-                                            <a href="#">
-                                                <i class="fa fa-heart"></i>
-                                                <p>Bloginlove</p>
-                                            </a>
-                                        </div><!-- /.single-icon -->
-                                        <div class="single-icon">
-                                            <a href="#">
-                                                <i class="fa fa-envelope-o"></i>
-                                                <p>Email</p>
-                                            </a>
-                                        </div><!-- /.single-icon -->
-                                    </div><!-- /.social-links-area -->
-                                </div><!-- /.sidebar-content -->
-                            </div><!-- /.single-sidebar-widget -->
-                            <div class="single-sidebar-widget">
-                                <h6 class="widget-title">mailchimp widget</h6>
-                                <div class="sidebar-content newsletter">
-                                    <h6>newsletter</h6>
-                                    <p>
-                                        Lorem ipsum dolor sit amet, consecteturs adipisicing elit,
-                                        sed do eiusmod tempor incididunt.
-                                    </p>
-                                    <div class="newsletter-form">
-                                        <form action="#" method="post">
-                                            <input type="text" placeholder="First name" />
-                                            <input type="text" placeholder="Your email address" />
-                                            <input type="submit" value="submit" />
-                                        </form>
-                                    </div>
-                                </div><!-- /.sidebar-content -->
-                            </div><!-- /.single-sidebar-widget -->
-                            <div class="single-sidebar-widget">
-                                <div class="sidebar-content ad-design">
-                                    <div class="ad-banner">
-                                        <a href="#"><img src="~/Content/img/sidebar/ad.jpg" alt="Ad Banner" /></a>
-                                        <div class="ad-banner-overlay">
-                                            <div class="banner-text">
-                                                <p>ad design</p>
-                                                <span>310&nbsp;X&nbsp;200</span>
-                                            </div>
+                            @if (User.Identity.IsAuthenticated)
+                            {
+                                <div class="single-sidebar-widget">
+                                    <h6 class="widget-title">Post</h6>
+                                    <div class="sidebar-content">
+                                        <div class="archive-list">
+                                            <ul>
+                                                @Html.ActionLink("Create New", "Create")
+                                            </ul>
                                         </div>
-                                    </div>
-                                </div><!-- /.sidebar-content -->
-                            </div><!-- /.single-sidebar-widget -->
+                                    </div><!-- /.sidebar-content -->
+                                </div>
+                            }
+                                <div class="single-sidebar-widget">
+                                    <h6 class="widget-title">follow me on</h6>
+                                    <div class="sidebar-content">
+                                        <div class="social-links-area">
+                                            <div class="single-icon">
+                                                <a href="#">
+                                                    <i class="fa fa-facebook"></i>
+                                                    <p>Facebook</p>
+                                                </a>
+                                            </div><!-- /.single-icon -->
+                                            <div class="single-icon">
+                                                <a href="#">
+                                                    <i class="fa fa-twitter"></i>
+                                                    <p>Twitter</p>
+                                                </a>
+                                            </div><!-- /.single-icon -->
+                                            <div class="single-icon">
+                                                <a href="#">
+                                                    <i class="fa fa-google-plus"></i>
+                                                    <p>Google Plus</p>
+                                                </a>
+                                            </div><!-- /.single-icon -->
+                                            <div class="single-icon">
+                                                <a href="#">
+                                                    <i class="fa fa-pinterest"></i>
+                                                    <p>Pinterest</p>
+                                                </a>
+                                            </div><!-- /.single-icon -->
+                                            <div class="single-icon">
+                                                <a href="#">
+                                                    <i class="fa fa-rss"></i>
+                                                    <p>RSS</p>
+                                                </a>
+                                            </div><!-- /.single-icon -->
+                                            <div class="single-icon">
+                                                <a href="#">
+                                                    <i class="fa fa-dribbble"></i>
+                                                    <p>Dribbble</p>
+                                                </a>
+                                            </div><!-- /.single-icon -->
+                                            <div class="single-icon">
+                                                <a href="#">
+                                                    <i class="fa fa-instagram"></i>
+                                                    <p>Instagram</p>
+                                                </a>
+                                            </div><!-- /.single-icon -->
+                                            <div class="single-icon">
+                                                <a href="#">
+                                                    <i class="fa fa-heart"></i>
+                                                    <p>Bloginlove</p>
+                                                </a>
+                                            </div><!-- /.single-icon -->
+                                            <div class="single-icon">
+                                                <a href="#">
+                                                    <i class="fa fa-envelope-o"></i>
+                                                    <p>Email</p>
+                                                </a>
+                                            </div><!-- /.single-icon -->
+                                        </div><!-- /.social-links-area -->
+                                    </div><!-- /.sidebar-content -->
+                                </div><!-- /.single-sidebar-widget -->
+
+                                <div class="single-sidebar-widget">
+                                    <h6 class="widget-title">SEARCH</h6>
+                                    <div class="sidebar-content">
+                                        <div class="archive-list">
+                                            <ul>
+
+                                                @using (Html.BeginForm())
+                                                {
+                                                    <p>
+                                                        Find by name: @Html.TextBox("SearchString")
+                                                        <input type="submit" value="Search" />
+                                                    </p>
+                                                }
+                                            </ul>
+                                        </div>
+                                    </div><!-- /.sidebar-content -->
+                                </div><!-- /.single-sidebar-widget -->
                                 <div class="single-sidebar-widget">
                                     <h6 class="widget-title">categories</h6>
                                     <div class="sidebar-content">
@@ -219,15 +220,16 @@
                                     </div><!-- /.sidebar-content -->
                                 </div><!-- /.single-sidebar-widget -->
                                 <div class="single-sidebar-widget">
-                                    <h6 class="widget-title">archive</h6>
+                                    <h6 class="widget-title">SORT</h6>
                                     <div class="sidebar-content">
                                         <div class="archive-list">
                                             <ul>
-                                                <li><a href="#"><span class="month">march</span><span class="number">(98)</span></a></li>
-                                                <li><a href="#"><span class="month">january</span><span class="number">(80)</span></a></li>
-                                                <li><a href="#"><span class="month">february</span><span class="number">(60)</span></a></li>
-                                                <li><a href="#"><span class="month">december</span><span class="number">(40)</span></a></li>
-                                                <li><a href="#"><span class="month">october</span><span class="number">(10)</span></a></li>
+
+                                                <li>
+                                                    @Html.ActionLink("NAME", "Index", new { sortOrder = ViewBag.NameSortParm })
+
+                                                </li>
+                                                <li>@Html.ActionLink("DATE", "Index", new { sortOrder = ViewBag.DateSortParm })</li>
                                             </ul>
                                         </div>
                                     </div><!-- /.sidebar-content -->
@@ -254,62 +256,67 @@
                     </div>
                     <div class="col-md-8 col-sm-12">
                         <div class="popular-posts-area">
-                            <h2 class="section-title">All posts</h2> @Html.ActionLink("Create New", "Create")
-                            <div class="row">
-                                @foreach (var item in Model)
-                                {
-                                    <div class="col-md-6 col-sm-6">
-                                        <div class="single-popular-post">
-                                            <div class="post-img">
+                            <h2 class="section-title">All posts</h2> 
+                        <div class="row">
+                            @foreach (var item in Model)
+                            {
+                                <div class="col-md-6 col-sm-6">
+                                    <div class="single-popular-post">
+                                        <div class="post-img">
 
-                                                @if (item.Hero_image != null)
-                                                {
-                                                    <a>
-                                                        @Html.Raw("<img style='width:370px; height:230px;' src=\"data:image/jpeg;base64,"
-                                                  + Convert.ToBase64String(item.Hero_image) + "\" />")
-                                                    </a>
+                                            @if (item.Hero_image != null)
+                                            {
+                                                <a>
+                                                    @Html.Raw("<img style='width:370px; height:230px;' src=\"data:image/jpeg;base64,"
+                                              + Convert.ToBase64String(item.Hero_image) + "\" />")
+                                                </a>
 
-                                                }
-                                                else
-                                                {
-                                                    <a><img src="~/Content/img/blog/5.jpg" alt="Popular Post" /></a>
-                                                }
+                                            }
+                                            else
+                                            {
+                                                <a><img src="~/Content/img/blog/5.jpg" alt="Popular Post" /></a>
+                                            }
 
 
-                                                <a href="#" class="post-tag">travel</a>
-                                                <div class="post-info">
-                                                    <p>
-                                                        <span class="post-date"><a href="#">July 10, 2015</a></span>
-                                                        <span class="post-comments"><a href="#">3 comments</a></span>
-                                                        <span class="post-social-links">
-                                                            <a href="#" data-toggle="tooltip" data-placement="bottom" title="Likes"><i class="fa fa-heart"></i></a>
-                                                            <a href="#" data-toggle="tooltip" data-placement="bottom" title="Facebook"><i class="fa fa-facebook"></i></a>
-                                                            <a href="#" data-toggle="tooltip" data-placement="bottom" title="Twitter"><i class="fa fa-twitter"></i></a>
-                                                            <a href="#" data-toggle="tooltip" data-placement="bottom" title="Google+"><i class="fa fa-google-plus"></i></a>
-                                                            <a href="#" data-toggle="tooltip" data-placement="bottom" title="Pinterest"><i class="fa fa-pinterest"></i></a>
-                                                        </span>
-                                                    </p>
-                                                </div>
-                                            </div>
-                                            <div class="post-content">
-                                                <h6 class="post-title">@Html.DisplayFor(modelItem => item.Name)</h6>
-                                                <p class="post-short-desc">
-                                                    @Html.DisplayFor(modelItem => item.Short_Description)
+                                            <a href="#" class="post-tag">travel</a>
+                                            <div class="post-info">
+                                                <p>
+                                                    <span class="post-date"><a href="#">July 10, 2015</a></span>
+                                                    <span class="post-comments"><a href="#">3 comments</a></span>
+                                                    <span class="post-social-links">
+                                                        <a href="#" data-toggle="tooltip" data-placement="bottom" title="Likes"><i class="fa fa-heart"></i></a>
+                                                        <a href="#" data-toggle="tooltip" data-placement="bottom" title="Facebook"><i class="fa fa-facebook"></i></a>
+                                                        <a href="#" data-toggle="tooltip" data-placement="bottom" title="Twitter"><i class="fa fa-twitter"></i></a>
+                                                        <a href="#" data-toggle="tooltip" data-placement="bottom" title="Google+"><i class="fa fa-google-plus"></i></a>
+                                                        <a href="#" data-toggle="tooltip" data-placement="bottom" title="Pinterest"><i class="fa fa-pinterest"></i></a>
+                                                    </span>
                                                 </p>
-                                                <div class="continue-link">
-                                                    @Html.ActionLink("Continue Reading...", "Details", new { id = item.Id })
-                                                </div>
                                             </div>
-                                        </div><!-- /.single-popular-post -->
-                                    </div>
+                                        </div>
+                                        <div class="post-content">
+                                            <h6 class="post-title">@Html.DisplayFor(modelItem => item.Name)</h6>
+                                            <p class="post-short-desc">
+                                                @Html.DisplayFor(modelItem => item.Short_Description)
+                                            </p>
+                                            <div class="continue-link">
+                                                @Html.ActionLink("Continue Reading...", "Details", new { id = item.Id })
+                                            </div>
+                                        </div>
+                                    </div><!-- /.single-popular-post -->
+                                </div>
 
-                                }
-                            </div>
+                            }
+                            <br />
+                            Page @(Model.PageCount < Model.PageNumber ? 0 : Model.PageNumber) of @Model.PageCount
+
+                            @Html.PagedListPager(Model, page => Url.Action("Index",
+                                new { page, sortOrder = ViewBag.CurrentSort, currentFilter = ViewBag.CurrentFilter }))
+                        </div>
                         </div><!-- /.popular-posts-area -->
                         <!-- latest-reviews-area start -->
-                        Страница @(Model.PageCount < Model.PageNumber ? 0 : Model.PageNumber) из @Model.PageCount
+                        @*Страница @(Model.PageCount < Model.PageNumber ? 0 : Model.PageNumber) из @Model.PageCount
 
-                        @Html.PagedListPager(Model, page => Url.Action("Index", new { page }))
+                        @Html.PagedListPager(Model, page => Url.Action("Index", new { page }))*@
                     </div>
                 </div>
             </div>

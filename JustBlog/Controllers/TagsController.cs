@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Data;
 using System.Data.Entity;
 using System.Linq;
+using System.Threading.Tasks;
 using System.Net;
 using System.Web;
 using System.Web.Mvc;
@@ -15,20 +16,20 @@ namespace JustBlog.Controllers
         private PostContext db = new PostContext();
 
         // GET: Tags
-        public ActionResult Index()
+        public async Task<ActionResult> Index()
         {
             var tags = db.Tags.Include(t => t.Post);
-            return View(tags.ToList());
+            return View(await tags.ToListAsync());
         }
 
         // GET: Tags/Details/5
-        public ActionResult Details(int? id)
+        public async Task<ActionResult> Details(int? id)
         {
             if (id == null)
             {
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             }
-            Tag tag = db.Tags.Find(id);
+            Tag tag = await db.Tags.FindAsync(id);
             if (tag == null)
             {
                 return HttpNotFound();
@@ -48,12 +49,12 @@ namespace JustBlog.Controllers
         // more details see https://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Create([Bind(Include = "Id,Tags,PostId")] Tag tag)
+        public async Task<ActionResult> Create([Bind(Include = "Id,Tags,PostId")] Tag tag)
         {
             if (ModelState.IsValid)
             {
                 db.Tags.Add(tag);
-                db.SaveChanges();
+                await db.SaveChangesAsync();
                 return RedirectToAction("Index");
             }
 
@@ -62,13 +63,13 @@ namespace JustBlog.Controllers
         }
 
         // GET: Tags/Edit/5
-        public ActionResult Edit(int? id)
+        public async Task<ActionResult> Edit(int? id)
         {
             if (id == null)
             {
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             }
-            Tag tag = db.Tags.Find(id);
+            Tag tag = await db.Tags.FindAsync(id);
             if (tag == null)
             {
                 return HttpNotFound();
@@ -82,12 +83,12 @@ namespace JustBlog.Controllers
         // more details see https://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Edit([Bind(Include = "Id,Tags,PostId")] Tag tag)
+        public async Task<ActionResult> Edit([Bind(Include = "Id,Tags,PostId")] Tag tag)
         {
             if (ModelState.IsValid)
             {
                 db.Entry(tag).State = EntityState.Modified;
-                db.SaveChanges();
+                await db.SaveChangesAsync();
                 return RedirectToAction("Index");
             }
             ViewBag.PostId = new SelectList(db.Posts, "Id", "Name", tag.PostId);
@@ -95,13 +96,13 @@ namespace JustBlog.Controllers
         }
 
         // GET: Tags/Delete/5
-        public ActionResult Delete(int? id)
+        public async Task<ActionResult> Delete(int? id)
         {
             if (id == null)
             {
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             }
-            Tag tag = db.Tags.Find(id);
+            Tag tag = await db.Tags.FindAsync(id);
             if (tag == null)
             {
                 return HttpNotFound();
@@ -112,11 +113,11 @@ namespace JustBlog.Controllers
         // POST: Tags/Delete/5
         [HttpPost, ActionName("Delete")]
         [ValidateAntiForgeryToken]
-        public ActionResult DeleteConfirmed(int id)
+        public async Task<ActionResult> DeleteConfirmed(int id)
         {
-            Tag tag = db.Tags.Find(id);
+            Tag tag = await db.Tags.FindAsync(id);
             db.Tags.Remove(tag);
-            db.SaveChanges();
+            await db.SaveChangesAsync();
             return RedirectToAction("Index");
         }
 

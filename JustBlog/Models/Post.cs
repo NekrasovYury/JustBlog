@@ -20,10 +20,11 @@ namespace JustBlog.Models
         [Column(TypeName = "image")]
         public byte[] Hero_image { get; set; }
         [Required]
-        public string Category { get; set; }
-        public string Tags { get; set; }
-        [Required]
         public DateTime PostDate { get; set; }
 
+        public Category Cat { get; set; }
+
+        public virtual ICollection<Tag> Tags { get; set; }
+       
     }
 }

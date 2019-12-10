@@ -2,8 +2,8 @@
 using System.Collections.Generic;
 using System.Data;
 using System.Data.Entity;
-using System.IO;
 using System.Linq;
+using System.Threading.Tasks;
 using System.Net;
 using System.Web;
 using System.Web.Mvc;
@@ -16,9 +16,9 @@ namespace JustBlog.Controllers
     {
         private PostContext db = new PostContext();
 
-        // GET: Posts
         public ActionResult Index(string sortOrder, string searchString, string currentFilter, int? page)
         {
+
             ViewBag.CurrentSort = sortOrder;
             ViewBag.NameSortParm = String.IsNullOrEmpty(sortOrder) ? "name_desc" : "";
             ViewBag.DateSortParm = sortOrder == "PostDate" ? "date_desc" : "PostDate";
@@ -33,41 +33,41 @@ namespace JustBlog.Controllers
 
             ViewBag.CurrentFilter = searchString;
 
-            var posts = from s in db.Posts
-                           select s;
+            var posts1 = from s in db.Posts
+                        select s;
             if (!String.IsNullOrEmpty(searchString))
             {
-                posts = posts.Where(s => s.Name.Contains(searchString));
-                                       
+                posts1 = posts1.Where(s => s.Name.Contains(searchString));
+
             }
             switch (sortOrder)
             {
                 case "name_desc":
-                    posts = posts.OrderByDescending(s => s.Name);
+                    posts1 = posts1.OrderByDescending(s => s.Name);
                     break;
                 case "PostDate":
-                    posts = posts.OrderBy(s => s.PostDate);
+                    posts1 = posts1.OrderBy(s => s.PostDate);
                     break;
                 case "date_desc":
-                    posts = posts.OrderByDescending(s => s.PostDate);
+                    posts1 = posts1.OrderByDescending(s => s.PostDate);
                     break;
                 default:
-                    posts = posts.OrderBy(s => s.Name);
+                    posts1 = posts1.OrderBy(s => s.Name);
                     break;
             }
             int pageSize = 10;
             int pageNumber = (page ?? 1);
-            return View(posts.ToPagedList(pageNumber, pageSize));
+            var posts = db.Posts.Include(p => p.Cat);
+            return View(posts1.ToPagedList(pageNumber, pageSize));
         }
-
-        // GET: Posts/Details/5
-        public ActionResult Details(int? id)
+        // GET: Posts1/Details/5
+        public async Task<ActionResult> Details(int? id)
         {
             if (id == null)
             {
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             }
-            Post post = db.Posts.Find(id);
+            Post post = await db.Posts.FindAsync(id);
             if (post == null)
             {
                 return HttpNotFound();
@@ -75,80 +75,72 @@ namespace JustBlog.Controllers
             return View(post);
         }
 
-        // GET: Posts/Create
+        // GET: Posts1/Create
         public ActionResult Create()
         {
+            ViewBag.Id = new SelectList(db.Categories, "Id", "Categorys");
             return View();
         }
 
-        // POST: Posts/Create
+        // POST: Posts1/Create
         // To protect from overposting attacks, please enable the specific properties you want to bind to, for 
         // more details see https://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Create([Bind(Include = "Id,Name,Short_Description,Description,Hero_image,Category,Tags,PostDate")] Post post, HttpPostedFileBase uploadImage)
+        public async Task<ActionResult> Create([Bind(Include = "Id,Name,Short_Description,Description,Hero_image,PostDate")] Post post)
         {
             if (ModelState.IsValid)
             {
-                if( uploadImage != null)
-                {
-                    byte[] imageData = null;
-                    // считываем переданный файл в массив байтов
-                    using (var binaryReader = new BinaryReader(uploadImage.InputStream))
-                    {
-                        imageData = binaryReader.ReadBytes(uploadImage.ContentLength);
-                    }
-                    // установка массива байтов
-                    post.Hero_image = imageData;
-                }
-                
                 db.Posts.Add(post);
-                db.SaveChanges();
+                await db.SaveChangesAsync();
                 return RedirectToAction("Index");
             }
 
+            ViewBag.Id = new SelectList(db.Categories, "Id", "Categorys", post.Id);
             return View(post);
         }
 
-        // GET: Posts/Edit/5
-        public ActionResult Edit(int? id)
+        // GET: Posts1/Edit/5
+        public async Task<ActionResult> Edit(int? id)
         {
             if (id == null)
             {
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             }
-            Post post = db.Posts.Find(id);
+            Post post = await db.Posts.FindAsync(id);
             if (post == null)
             {
                 return HttpNotFound();
             }
+            ViewBag.Id = new SelectList(db.Categories, "Id", "Categorys", post.Id);
             return View(post);
         }
 
-        // POST: Posts/Edit/5
+        // POST: Posts1/Edit/5
         // To protect from overposting attacks, please enable the specific properties you want to bind to, for 
         // more details see https://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Edit([Bind(Include = "Id,Name,Short_Description,Description,Hero_image,Category,Tags,PostDate")] Post post)
+        public async Task<ActionResult> Edit([Bind(Include = "Id,Name,Short_Description,Description,Hero_image,PostDate")] Post post)
         {
             if (ModelState.IsValid)
             {
                 db.Entry(post).State = EntityState.Modified;
-                db.SaveChanges();
+                await db.SaveChangesAsync();
                 return RedirectToAction("Index");
             }
+            ViewBag.Id = new SelectList(db.Categories, "Id", "Categorys", post.Id);
             return View(post);
         }
 
-        // GET: Posts/Delete/5
-        public ActionResult Delete(int? id)
+        // GET: Posts1/Delete/5
+        public async Task<ActionResult> Delete(int? id)
         {
             if (id == null)
             {
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             }
-            Post post = db.Posts.Find(id);
+            Post post = await db.Posts.FindAsync(id);
             if (post == null)
             {
                 return HttpNotFound();
@@ -156,14 +148,14 @@ namespace JustBlog.Controllers
             return View(post);
         }
 
-        // POST: Posts/Delete/5
+        // POST: Posts1/Delete/5
         [HttpPost, ActionName("Delete")]
         [ValidateAntiForgeryToken]
-        public ActionResult DeleteConfirmed(int id)
+        public async Task<ActionResult> DeleteConfirmed(int id)
         {
-            Post post = db.Posts.Find(id);
+            Post post = await db.Posts.FindAsync(id);
             db.Posts.Remove(post);
-            db.SaveChanges();
+            await db.SaveChangesAsync();
             return RedirectToAction("Index");
         }
 

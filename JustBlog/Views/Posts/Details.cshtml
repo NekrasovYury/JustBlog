@@ -36,41 +36,53 @@
                         <br />
                         @if (User.Identity.IsAuthenticated)
                         {
+                            @Html.ActionLink("Add Category", "Create", "Categories")
+                            <br />
+                            @Html.ActionLink("Add Tags", "Create", "Tags")
+                            <br />
                             @Html.ActionLink("Edit", "Edit", new { id = Model.Id })
                             <br />
                             @Html.ActionLink("Delete", "Delete", new { id = Model.Id })
                         }
-                            <p class="post-date">Postet Data @Html.DisplayFor(model => model.PostDate)</p>
-                            <div class="post-long-desc">
+                        <p class="post-date">Postet Data @Html.DisplayFor(model => model.PostDate)</p>
+                        <div class="post-long-desc">
 
+                        </div>
+                        <div class="single-blog-bottom fix">
+                            <div class="post-social-links pull-left">
+                                <p>
+                                    <span class="lbl">Share on&nbsp;&nbsp;-</span>
+                                    <span>
+                                        <a href="#"><i class="fa fa-facebook"></i></a>
+                                        <a href="#"><i class="fa fa-twitter"></i></a>
+                                        <a href="#"><i class="fa fa-google-plus"></i></a>
+                                        <a href="#"><i class="fa fa-pinterest"></i></a>
+                                    </span>
+                                </p>
                             </div>
-                            <div class="single-blog-bottom fix">
-                                <div class="post-social-links pull-left">
-                                    <p>
-                                        <span class="lbl">Share on&nbsp;&nbsp;-</span>
-                                        <span>
-                                            <a href="#"><i class="fa fa-facebook"></i></a>
-                                            <a href="#"><i class="fa fa-twitter"></i></a>
-                                            <a href="#"><i class="fa fa-google-plus"></i></a>
-                                            <a href="#"><i class="fa fa-pinterest"></i></a>
-                                        </span>
-                                    </p>
-                                </div>
-                                <div class="post-tags pull-right">
-                                    <p>
-                                        <span class="lbl">Tags&nbsp;&nbsp;-</span>
-                                        <span>
-                                            @Html.DisplayFor(model => model.Tags)
-                                        </span>
-                                        <br>
-                                        <span class="lbl">Category&nbsp;&nbsp;-</span>
-                                        <span>
-                                            @Html.DisplayFor(model => model.Category)
-                                        </span>
-                                    </p>
-                                </div>
+                            <div class="post-tags pull-right">
+                                <p>
+                                    <span class="lbl">Tags&nbsp;&nbsp;-</span>
+                                    <span>
+                                        @foreach (var item in Model.Tags)
+                                        {
+                                            <tr>
+                                                <td>
+                                                    @Html.DisplayFor(modelItem => item.Tags)
+                                                </td>
+                                            </tr>
+                                        }
+                                    </span>
+                                    <br>
+                                    <span class="lbl">Category&nbsp;&nbsp;-</span>
+                                    <span>
+
+                                        @Html.DisplayFor(model => model.Cat.Categorys)
+                                    </span>
+                                </p>
                             </div>
                         </div>
+                    </div>
                 </div>
             </div>
             </div>
